@@ -27,19 +27,19 @@ const afficherUnTeddy = async idTeddy => {
                      <p class="card-text">${data.description}</p>
                   </div>
                   <ul class="list-group list-group-flush">
-                     <li class="list-group-item"">
+                     <li class="list-group-item">
                         <label for="couleur">Couleur :</label>
                         <select class="custom-select" name="couleur" id="couleur">
                            ${listeDesCouleurs}
                         </select>
                      </li>
-                     <li class="list-group-item"">
+                     <li class="list-group-item">
                         <label for="quantite">Quantité :</label>
                         <input type="number" class="form-control" name="quantite" id="quantite" min="1" value="1">
                      </li>
                   </ul>
                   <div class="card-footer text-center">
-                     <button id="ajoutPanier" type="button" class="btn btn-secondary" data-toggle="modal" data-target="#confirmationAjoutPanier">Ajouter au panier</button>
+                     <button id="ajoutPanier" type="button" class="btn btn-secondary" data-bs-toggle="modal" data-bs-target="#confirmationAjoutPanier">Ajouter au panier</button>
                   </div>
                </div>
             </div>`;
@@ -53,7 +53,7 @@ const afficherUnTeddy = async idTeddy => {
  * @param {String} quantite quantité d'articles sélectionnée par l'utilisateur.
  */
 const ajoutTeddyLocalStorage = async (idTeddy, quantite) => {
-   let data = await get(`http://localhost:3000/api/teddies/${idTeddy}`);
+   let data = await get(`http://localhost:8090/oriteddies_php/api/teddies/${idTeddy}`);
    data.quantite = quantite;
    let tabProduitsPanier = localStorage.getItem('produitsPanier');
 

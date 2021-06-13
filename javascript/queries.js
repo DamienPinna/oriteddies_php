@@ -53,7 +53,7 @@ const get = async (url) => {
  * @returns {String} retourne au format JSON l'objet contact, le tableau des produits et l'id de commande.
  */
 const insertPost = async dataCommande => {
-   const response = await fetch('http://localhost:3000/api/teddies/order', {
+   const response = await fetch('http://localhost:8090/oriteddies_php/api/teddies/order', {
       method: 'POST',
       headers: {
          'Content-Type': 'application/json'
