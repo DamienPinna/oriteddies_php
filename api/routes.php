@@ -6,16 +6,14 @@ try {
     if (!empty($_GET["demande"])) {
         $url = explode("/", filter_var($_GET["demande"], FILTER_SANITIZE_URL));
 
-        if ($url[0] === "teddies") {
-            if (empty($url[1])) {
-                getAllTeddies();
-            } else {
-                getOneTeddie($url[1]);
-            }
+        if ($url[0] === "teddies" && empty($url[1])) {
+            getAllTeddies();
+        } else if ($url[0] === "teddies" && !empty($url[1])){
+            getOneTeddie($url[1]);
         } else {
             throw new Exception("Cet URL est iconnue");
         }
-
+        
     } else {
         throw new Exception("Cet URL est iconnue");
     }
