@@ -1,11 +1,18 @@
 <?php
 
+define("URL", str_replace("routes.php", "", (isset($_SERVER['HTTPS'])? "https" : "http")."://".$_SERVER['HTTP_HOST'].$_SERVER["PHP_SELF"]));
+
 function getAllTeddies() {
     $pdo = getConnexion();
     $req = "SELECT * FROM produit";
     $statement = $pdo->prepare($req);
     $statement->execute();
     $res = $statement->fetchAll(PDO::FETCH_ASSOC);
+
+    for ($i=0; $i < count($res); $i++) {
+        $res[$i]['imageUrl'] = URL."images/".$res[$i]['imageUrl'];
+    }
+
     $statement->closeCursor();
     sendJSON($res);
 }
