@@ -1,0 +1,13 @@
+body {
+   padding-top: 56px;
+}
+
+.fa-times-circle {
+   font-size: 2rem;
+   color: tomato;
+   cursor: pointer;;
+}
+
+form span {
+   color: red;
+}
