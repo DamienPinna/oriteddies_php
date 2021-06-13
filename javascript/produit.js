@@ -6,12 +6,14 @@ const idTeddy = document.location.hash.substring(1); //Récupération de l'id pr
  * @returns {String} retourne du HTML.
  */
 const afficherUnTeddy = async idTeddy => {
-   const data = await get(`http://localhost:3000/api/teddies/${idTeddy}`);
+   const data = await get(`http://localhost:8090/oriteddies_php/api/teddies/${idTeddy}`);
    const article = document.querySelector('#article');
 
-   //Création dynamiquement de la liste de couleurs.
+   //Création de la liste de couleurs.
+   const colors = ["Beige", "Orange", "Brun", "Blanc"];
    let listeDesCouleurs = "";
-   for (let couleur of data.colors) {
+
+   for (let couleur of colors) {
       listeDesCouleurs += `<option value="${couleur}">${couleur}</option>`;
    }
 
@@ -21,7 +23,7 @@ const afficherUnTeddy = async idTeddy => {
                   <img class="card-img-top" src="${data.imageUrl}" alt="photographie d'un ourson en peluche">
                   <div class="card-body">
                      <h4 class="card-title text-primary">${data.name}</h4>
-                     <h5>$${data.price}</h5>
+                     <h5>$${data.price/100}</h5>
                      <p class="card-text">${data.description}</p>
                   </div>
                   <ul class="list-group list-group-flush">

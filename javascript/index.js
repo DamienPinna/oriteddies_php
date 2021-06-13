@@ -9,16 +9,16 @@ const afficherTeddies = async () => {
       teddies +=`
             <div class="col-md-6 col-lg-4 mb-4">
                <div class="card h-100">
-                  <a href="./views/produit.html#${teddy._id}"><img class="card-img-top" src="${teddy.imageUrl}" alt="photographie d'un ourson en peluche"></a>
+                  <a href="./views/produit.html#${teddy.id}"><img class="card-img-top" src="${teddy.imageUrl}" alt="photographie d'un ourson en peluche"></a>
                   <div class="card-body">
                      <h4 class="card-title">
-                        <a href="./views/produit.html#${teddy._id}">${teddy.name}</a>
+                        <a href="./views/produit.html#${teddy.id}">${teddy.name}</a>
                      </h4>
                      <h5>$${teddy.price/100}</h5>
                      <p class="card-text">${teddy.description}</p>
                   </div>
                   <div class="card-footer text-center">
-                     <a href="./views/produit.html#${teddy._id}" class="btn btn-secondary">Ca m'intéresse</a>
+                     <a href="./views/produit.html#${teddy.id}" class="btn btn-secondary">Ca m'intéresse</a>
                   </div>
                </div>
             </div>`;

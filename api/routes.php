@@ -15,7 +15,7 @@ try {
         } else {
             throw new Exception("Cet URL est iconnue");
         }
-        
+
     } else {
         throw new Exception("Cet URL est iconnue");
     }

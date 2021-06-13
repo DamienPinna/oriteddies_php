@@ -24,6 +24,7 @@ function getOneTeddie($id) {
     $statement->bindValue(":id", $id, PDO::PARAM_INT);
     $statement->execute();
     $res = $statement->fetch(PDO::FETCH_ASSOC);
+    $res['imageUrl'] = URL."images/".$res['imageUrl'];
     $statement->closeCursor();
     sendJSON($res);
 }
