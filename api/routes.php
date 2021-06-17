@@ -2,20 +2,31 @@
 
 require_once('./controllers.php');
 
-try {
-    if (!empty($_GET["demande"])) {
-        $url = explode("/", filter_var($_GET["demande"], FILTER_SANITIZE_URL));
+$request_method = $_SERVER["REQUEST_METHOD"];
 
-        if ($url[0] === "teddies" && empty($url[1])) {
-            getAllTeddies();
-        } else if ($url[0] === "teddies" && !empty($url[1])){
-            getOneTeddie($url[1]);
-        } else {
-            throw new Exception("Cet URL est iconnue");
-        }
-        
-    } else {
-        throw new Exception("Cet URL est iconnue");
+try {
+    switch($request_method) {
+        case 'GET':
+           if (!empty($_GET["id"])) {
+              // Récupérer un seul produit
+              $id = intval($_GET["id"]);
+              getOneTeddie($id);
+           } else {
+              // Récupérer tous les produits
+              getAllTeddies();
+           }
+           break;
+        case 'POST':
+           header("Access-Control-Allow-Origin: *");
+           header("Content-Type: application/json; charset=UTF-8");
+           header("Access-Control-Allow-Methods: POST");
+           header("Access-Control-Allow-Headers: Content-Type, Access-Control-Allow-Headers, Authorization, X-Requested-With");
+           $donnees = json_decode(file_get_contents("php://input"));
+           echo json_encode($donnees, JSON_UNESCAPED_UNICODE);
+     
+        default:
+        // Requête invalide
+        header("HTTP/1.0 405 Method Not Allowed");
     }
 } catch (Exception $e) {
     $error = [

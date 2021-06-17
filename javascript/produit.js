@@ -87,4 +87,4 @@ afficherUnTeddy(idTeddy)
 
 afficherCompteurPanier();
 
-document.querySelector('.close').addEventListener('click', () => document.location.reload());
+// document.querySelector('.close').addEventListener('click', () => document.location.reload());

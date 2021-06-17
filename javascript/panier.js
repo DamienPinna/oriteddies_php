@@ -198,15 +198,15 @@ form.addEventListener('submit', event => {
 
    const resulatcheckForm = checkForm(firstName, lastName, address, city, email);
 
-   const products = tabObjetsLocalStorage.map(e => e._id);
+   const products = tabObjetsLocalStorage.map(e => e.id);
    order.products = products;
 
    if (resulatcheckForm) {
       insertPost(order)
       .then(responseData => ajouterCommandeDansSessionStorage(responseData))
       .then( () => { 
-         localStorage.removeItem('produitsPanier'); 
-         window.location.href = 'confirm_order.html';
+         // localStorage.removeItem('produitsPanier'); 
+         // window.location.href = 'confirm_order.html';
       });
    };
 });
