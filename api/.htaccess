@@ -1,4 +1,6 @@
-RewriteEngine On # Activer le module Rewrite
-RewriteRule ^teddies/?$ routes.php [NC,L]
-RewriteRule ^teddies/order routes.php [NC,L]
-RewriteRule ^[^/]+/(\d+)$ routes.php?id=$1
+RewriteEngine On
+
+RewriteCond %{REQUEST_FILENAME} !-f
+RewriteCond %{REQUEST_FILENAME} !-d
+
+RewriteRule ^(.*)$ routes.php?page=$1

@@ -1,37 +1,31 @@
 <?php
 
-require_once('./controllers.php');
-
-$request_method = $_SERVER["REQUEST_METHOD"];
+require_once('controllers/api_controller.php');
+$apiController = new ApiController();
 
 try {
-    switch($request_method) {
-        case 'GET':
-           if (!empty($_GET["id"])) {
-              // Récupérer un seul produit
-              $id = intval($_GET["id"]);
-              getOneTeddie($id);
-           } else {
-              // Récupérer tous les produits
-              getAllTeddies();
-           }
-           break;
-        case 'POST':
-           header("Access-Control-Allow-Origin: *");
-           header("Content-Type: application/json; charset=UTF-8");
-           header("Access-Control-Allow-Methods: POST");
-           header("Access-Control-Allow-Headers: Content-Type, Access-Control-Allow-Headers, Authorization, X-Requested-With");
-           $donnees = json_decode(file_get_contents("php://input"));
-           echo json_encode($donnees, JSON_UNESCAPED_UNICODE);
-     
-        default:
-        // Requête invalide
-        header("HTTP/1.0 405 Method Not Allowed");
-    }
+
+   if (empty($_GET['page'])) {
+      throw new Exception("La page n'existe pas");
+   } else {
+      $url = explode("/", filter_var($_GET['page'], FILTER_SANITIZE_URL));
+
+      if ($url[0] === "teddies" && empty($url[1])) {
+         $apiController->getAllTeddies();
+      } else if ($url[0] === "teddies" && !empty($url[1]) && $url[1] !== "order" && empty($url[2])) {
+         $apiController->getOneTeddie($url[1]);
+      } else if ($url[0] === "teddies" && $url[1] === "order" && empty($url[2])) {
+         echo "page de comande"; 
+      } else {
+         throw new Exception("La page n'existe pas");
+      }
+
+   }
+   
 } catch (Exception $e) {
-    $error = [
-        "message" => $e->getMessage(),
-        "code" => $e->getCode()
-    ];
-    print_r($error);
+   $error = [
+      "message" => $e->getMessage(),
+      "code" => $e->getCode()
+   ];
+   print_r($error);
 }
