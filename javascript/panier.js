@@ -80,7 +80,7 @@ const afficherTabPanier = teddies => {
    const tbody = document.querySelector('tbody');
    const total = document.querySelector('.total');
 
-   const newTeddies = teddies.map(e => ({...e, sousTotal: e.quantite * e.price})); //Création d'une projection du tableau teddies nommée newTeddies et ajout du sous total.
+   const newTeddies = teddies.map(e => ({...e, sousTotal: e.quantite * e.price/100})); //Création d'une projection du tableau teddies nommée newTeddies et ajout du sous total.
 
    newTeddies.forEach((teddy, index) => tbody.appendChild(creerLignePanier(teddy, index)));
 

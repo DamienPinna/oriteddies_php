@@ -12,7 +12,7 @@ class ApiManager extends Model {
       $teddies = $stmt->fetchAll(PDO::FETCH_ASSOC);
 
       for ($i=0; $i < count($teddies); $i++) {
-         $teddies[$i]['imageUrl'] = URL."images/".$teddies[$i]['imageUrl'];
+         $teddies[$i]['imageUrl'] = URL."public/images/".$teddies[$i]['imageUrl'];
       }
 
       $stmt->closeCursor();
@@ -25,7 +25,7 @@ class ApiManager extends Model {
       $stmt->bindValue(":id", $id, PDO::PARAM_INT);
       $stmt->execute();
       $teddie = $stmt->fetch(PDO::FETCH_ASSOC);
-      $teddie['imageUrl'] = URL."images/".$teddie['imageUrl'];
+      $teddie['imageUrl'] = URL."public/images/".$teddie['imageUrl'];
       $stmt->closeCursor();
       return $teddie;
    }
