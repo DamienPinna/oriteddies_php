@@ -29,4 +29,47 @@ class ApiManager extends Model {
       $stmt->closeCursor();
       return $teddie;
    }
+
+   public function traitementDeLaCommande() {
+      header("Access-Control-Allow-Origin: *");
+      header("Access-Control-Allow-Methods: POST");
+      header("Access-Control-Allow-Headers: Accept, Content-Type, Content-Length, Accept-Encoding, X-CSRF-Token, Authorization");
+
+      $order = json_decode(file_get_contents('php://input'));
+
+      $products = [];
+      foreach ($order->products as $product) {
+         $products[] = $this->getDbOneTeddie($product);
+      }
+
+      $orderId = random_int(1000, 9999) . "-" . random_int(1000, 9999) . "-" . random_int(1000, 9999) . "-" . random_int(1000, 9999);
+
+      $retourOrder = [
+
+         "contact" =>
+         [
+            "firstName" => $order->contact->firstName,
+            "lastName" => $order->contact->lastName,
+            "address" => $order->contact->address,
+            "city" => $order->contact->city,
+            "email"=> $order->contact->email
+         ],
+
+         "products" => $products,
+         "orderId" => $orderId
+      ];
+
+      $this->sendMail($retourOrder);
+
+      return $retourOrder;
+   }
+
+   public function sendMail($retourOrder) {
+      $to = $retourOrder['contact']['email'];
+      $subject = "Confirmation de votre commande n° ". $retourOrder['orderId'];
+      $message = "Bonjour M." . $retourOrder['contact']['lastName'] . ",\n\nVotre commande n° " . $retourOrder['orderId'] . " a bien été prise en compte.\nVous recevrez un mail à l'expédition de votre colis.\n\nCordialement\nL'équipe d'Oriteddies";
+      $headers = "From : damien.pinna@gmail.com";
+
+      mail($to, $subject, $message, $headers);
+   }
 }
