@@ -14,7 +14,7 @@ const afficherTeddies = async () => {
                      <h4 class="card-title">
                         <a href="./views/produit.html#${teddy.id}">${teddy.name}</a>
                      </h4>
-                     <h5>$${teddy.price/100}</h5>
+                     <h5>$${teddy.price}</h5>
                      <p class="card-text">${teddy.description}</p>
                   </div>
                   <div class="card-footer text-center">

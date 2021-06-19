@@ -15,7 +15,7 @@ try {
       } else if ($url[0] === "teddies" && !empty($url[1]) && $url[1] !== "order" && empty($url[2])) {
          $apiController->getOneTeddie($url[1]);
       } else if ($url[0] === "teddies" && $url[1] === "order" && empty($url[2])) {
-         echo "page de comande"; 
+         $apiController->retourCommande();
       } else {
          throw new Exception("La page n'existe pas");
       }

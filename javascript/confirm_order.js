@@ -5,7 +5,7 @@
 const infosOrder = () => {
    const order = getTabSessionStorage();
    const orderId = order.orderId;
-   const prixCommande = order.products.reduce((acc, product) => acc + product.price, 0);
+   const prixCommande = order.products.reduce((acc, product) => acc + parseInt(product.price), 0);
    return [orderId, prixCommande];
 }
 

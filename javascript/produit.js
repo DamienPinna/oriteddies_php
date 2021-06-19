@@ -23,7 +23,7 @@ const afficherUnTeddy = async idTeddy => {
                   <img class="card-img-top" src="${data.imageUrl}" alt="photographie d'un ourson en peluche">
                   <div class="card-body">
                      <h4 class="card-title text-primary">${data.name}</h4>
-                     <h5>$${data.price/100}</h5>
+                     <h5>$${data.price}</h5>
                      <p class="card-text">${data.description}</p>
                   </div>
                   <ul class="list-group list-group-flush">
