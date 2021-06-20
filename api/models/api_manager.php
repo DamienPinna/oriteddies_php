@@ -6,17 +6,35 @@ define("URL", str_replace("routes.php", "", (isset($_SERVER['HTTPS'])? "https" :
 class ApiManager extends Model {
    
    public function getDbAllTeddies() {
-      $req = "SELECT * FROM produit";
+      $req = "SELECT p.id, p.name, p.price, p.description, p.imageUrl, c.couleur AS colors
+            FROM produit p
+            INNER JOIN produit_couleur pc ON p.id = pc.id
+            INNER JOIN couleur c ON pc.id_couleur = c.id_couleur;";
+   
       $stmt = $this->getConnexion()->prepare($req);
       $stmt->execute();
       $teddies = $stmt->fetchAll(PDO::FETCH_ASSOC);
 
-      for ($i=0; $i < count($teddies); $i++) {
-         $teddies[$i]['imageUrl'] = URL."public/images/".$teddies[$i]['imageUrl'];
-      }
-
       $stmt->closeCursor();
-      return $teddies;
+
+      $array = [];
+      foreach ($teddies as $teddy) {
+         if (!array_key_exists($teddy['id']-1, $array)) {
+            $array[] = [
+               "id" => $teddy['id'],
+               "name" => $teddy['name'],
+               "price" => $teddy['price'],
+               "description" => $teddy['description'],
+               "imageUrl" => URL."public/images/".$teddy['imageUrl'],
+            ];
+         };
+         $array[$teddy['id']-1]['colors'][] = 
+            $teddy['colors']
+         ;
+      }
+   
+      return $array;
+
    }
 
    public function getDbOneTeddie($id) {
@@ -24,10 +42,10 @@ class ApiManager extends Model {
       $stmt = $this->getConnexion()->prepare($req);
       $stmt->bindValue(":id", $id, PDO::PARAM_INT);
       $stmt->execute();
-      $teddie = $stmt->fetch(PDO::FETCH_ASSOC);
-      $teddie['imageUrl'] = URL."public/images/".$teddie['imageUrl'];
+      $teddy = $stmt->fetch(PDO::FETCH_ASSOC);
+      $teddy['imageUrl'] = URL."public/images/".$teddy['imageUrl'];
       $stmt->closeCursor();
-      return $teddie;
+      return $teddy;
    }
 
    public function traitementDeLaCommande() {
