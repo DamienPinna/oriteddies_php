@@ -9,7 +9,7 @@ const afficherUnTeddy = async idTeddy => {
    const data = await get(`http://localhost:8090/oriteddies_php/api/teddies/${idTeddy}`);
    const article = document.querySelector('#article');
 
-   //Création dynamiquement de la liste de couleurs.
+   //Création dynamique de la liste de couleurs.
    let listeDesCouleurs = "";
    for (let couleur of data.colors) {
       listeDesCouleurs += `<option value="${couleur}">${couleur}</option>`;
