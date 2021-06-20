@@ -28,9 +28,7 @@ class ApiManager extends Model {
                "imageUrl" => URL."public/images/".$teddy['imageUrl'],
             ];
          };
-         $array[$teddy['id']-1]['colors'][] = 
-            $teddy['colors']
-         ;
+         $array[$teddy['id']-1]['colors'][] = $teddy['colors'];
       }
    
       return $array;
@@ -38,14 +36,35 @@ class ApiManager extends Model {
    }
 
    public function getDbOneTeddie($id) {
-      $req = "SELECT * FROM produit WHERE id = :id";
+      $req = "SELECT p.id, p.name, p.price, p.description, p.imageUrl, c.couleur AS colors
+            FROM produit p
+            INNER JOIN produit_couleur pc ON p.id = pc.id
+            INNER JOIN couleur c ON pc.id_couleur = c.id_couleur
+            WHERE p.id = :id;";
+
       $stmt = $this->getConnexion()->prepare($req);
       $stmt->bindValue(":id", $id, PDO::PARAM_INT);
       $stmt->execute();
-      $teddy = $stmt->fetch(PDO::FETCH_ASSOC);
-      $teddy['imageUrl'] = URL."public/images/".$teddy['imageUrl'];
+      $teddies = $stmt->fetchAll(PDO::FETCH_ASSOC);
+      // $teddy['imageUrl'] = URL."public/images/".$teddy['imageUrl'];
       $stmt->closeCursor();
-      return $teddy;
+
+      $array = [];
+      foreach ($teddies as $teddy) {
+         if (!array_key_exists('id', $array)) {
+            $array = [
+               "id" => $teddy['id'],
+               "name" => $teddy['name'],
+               "price" => $teddy['price'],
+               "description" => $teddy['description'],
+               "imageUrl" => URL."public/images/".$teddy['imageUrl'],
+            ];
+         };
+         $array['colors'][] = $teddy['colors'];
+      }
+
+      return $array;
+
    }
 
    public function traitementDeLaCommande() {
