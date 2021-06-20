@@ -46,7 +46,6 @@ class ApiManager extends Model {
       $stmt->bindValue(":id", $id, PDO::PARAM_INT);
       $stmt->execute();
       $teddies = $stmt->fetchAll(PDO::FETCH_ASSOC);
-      // $teddy['imageUrl'] = URL."public/images/".$teddy['imageUrl'];
       $stmt->closeCursor();
 
       $array = [];
