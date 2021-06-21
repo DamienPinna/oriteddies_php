@@ -74,8 +74,12 @@ class ApiManager extends Model {
       $order = json_decode(file_get_contents('php://input'));
 
       $products = [];
-      foreach ($order->products as $product) {
-         $products[] = $this->getDbOneTeddie($product);
+      for ($i=0; $i < count($order->products); $i++) {
+         foreach ($order->products[$i] as $product) {
+            for ($y=0 ; $y < $product->quantite; $y++) {
+               $products[] = $this->getDbOneTeddie($product->id);
+            }
+         }
       }
 
       $orderId = random_int(1000, 9999) . "-" . random_int(1000, 9999) . "-" . random_int(1000, 9999) . "-" . random_int(1000, 9999);
