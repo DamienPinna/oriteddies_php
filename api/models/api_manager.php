@@ -71,28 +71,26 @@ class ApiManager extends Model {
       header("Access-Control-Allow-Methods: POST");
       header("Access-Control-Allow-Headers: Accept, Content-Type, Content-Length, Accept-Encoding, X-CSRF-Token, Authorization");
 
-      $order = json_decode(file_get_contents('php://input'));
-
+      $orderObject = json_decode(file_get_contents('php://input'));
+    
       $products = [];
-      for ($i=0; $i < count($order->products); $i++) {
-         foreach ($order->products[$i] as $product) {
-            for ($y=0 ; $y < $product->quantite; $y++) {
-               $products[] = $this->getDbOneTeddie($product->id);
-            }
+      foreach ($orderObject->products as $product) {
+         for ($i=0; $i < $product->quantite; $i++) {
+            $products[] = $this->getDbOneTeddie($product->id);
          }
       }
-
+     
       $orderId = random_int(1000, 9999) . "-" . random_int(1000, 9999) . "-" . random_int(1000, 9999) . "-" . random_int(1000, 9999);
 
       $retourOrder = [
 
          "contact" =>
          [
-            "firstName" => $order->contact->firstName,
-            "lastName" => $order->contact->lastName,
-            "address" => $order->contact->address,
-            "city" => $order->contact->city,
-            "email"=> $order->contact->email
+            "firstName" => $orderObject->contact->firstName,
+            "lastName" => $orderObject->contact->lastName,
+            "address" => $orderObject->contact->address,
+            "city" => $orderObject->contact->city,
+            "email"=> $orderObject->contact->email
          ],
 
          "products" => $products,

@@ -198,7 +198,7 @@ form.addEventListener('submit', event => {
 
    const resulatcheckForm = checkForm(firstName, lastName, address, city, email);
 
-   const products = tabObjetsLocalStorage.map(e => [{"id": e.id, "quantite": e.quantite}]);
+   const products = tabObjetsLocalStorage.map(e => ({"id": e.id, "quantite": e.quantite}));
    order.products = products;
 
    if (resulatcheckForm) {
