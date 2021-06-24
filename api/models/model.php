@@ -1,12 +1,10 @@
 <?php
 
-// require_once "config/config.php";
-
 abstract class Model {
    private static $pdo;
 
    private static function setDB() {
-      self::$pdo = new PDO("mysql:host=localhost;dbname=oriteddies;charset=utf8","root","admin");
+      self::$pdo = new PDO("mysql:host=".HOST_NAME.";dbname=".DB_NAME.";charset=utf8",USER_NAME,PASSWORD);
       self::$pdo->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_WARNING);
    }
 
