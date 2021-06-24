@@ -1,14 +1,17 @@
 <?php
 
-require_once('controllers/api_controller.php');
+require_once "controllers/api_controller.php";
+require_once "config/securite.php";
 $apiController = new ApiController();
 
 try {
 
-   if (empty($_GET['page'])) {
+   $page = secureHTML($_GET['page']);
+
+   if (empty($page)) {
       throw new Exception("La page n'existe pas");
    } else {
-      $url = explode("/", filter_var($_GET['page'], FILTER_SANITIZE_URL));
+      $url = explode("/", filter_var($page, FILTER_SANITIZE_URL));
 
       switch ($url[0]) {
          case "teddies" :
