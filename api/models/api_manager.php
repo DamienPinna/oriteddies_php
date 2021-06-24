@@ -9,7 +9,8 @@ class ApiManager extends Model {
       $req = "SELECT p.id, p.name, p.price, p.description, p.imageUrl, c.couleur AS colors
             FROM produit p
             INNER JOIN produit_couleur pc ON p.id = pc.id
-            INNER JOIN couleur c ON pc.id_couleur = c.id_couleur;";
+            INNER JOIN couleur c ON pc.id_couleur = c.id_couleur
+            ORDER BY p.id;";
    
       $stmt = $this->getConnexion()->prepare($req);
       $stmt->execute();
@@ -32,7 +33,7 @@ class ApiManager extends Model {
       }
    
       return $array;
-
+      
    }
 
    public function getDbOneTeddie($id) {
