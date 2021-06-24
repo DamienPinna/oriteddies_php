@@ -10,16 +10,20 @@ try {
    } else {
       $url = explode("/", filter_var($_GET['page'], FILTER_SANITIZE_URL));
 
-      if ($url[0] === "teddies" && empty($url[1])) {
-         $apiController->getAllTeddies();
-      } else if ($url[0] === "teddies" && !empty($url[1]) && $url[1] !== "order" && empty($url[2])) {
-         $apiController->getOneTeddie($url[1]);
-      } else if ($url[0] === "teddies" && $url[1] === "order" && empty($url[2])) {
-         $apiController->retourCommande();
-      } else {
-         throw new Exception("La page n'existe pas");
+      switch ($url[0]) {
+         case "teddies" :
+            if (empty($url[1])) {
+               $apiController->getAllTeddies();
+            } else if (!empty($url[1]) && $url[1] !== "order" && empty($url[2])) {
+               $apiController->getOneTeddie($url[1]);
+            } else if ($url[1] === "order" && empty($url[2])) {
+               $apiController->retourCommande();
+            } else {
+               throw new Exception("La page n'existe pas");
+            }
+         break;
+         default: throw new Exception("La page n'existe pas");
       }
-
    }
    
 } catch (Exception $e) {
