@@ -26,7 +26,7 @@ CREATE TABLE `couleur` (
   `id_couleur` int NOT NULL AUTO_INCREMENT,
   `couleur` varchar(20) NOT NULL,
   PRIMARY KEY (`id_couleur`)
-) ENGINE=InnoDB AUTO_INCREMENT=9 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=9 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -53,7 +53,7 @@ CREATE TABLE `produit` (
   `description` varchar(250) DEFAULT NULL,
   `imageUrl` varchar(45) DEFAULT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=6 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=6 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -80,7 +80,7 @@ CREATE TABLE `produit_couleur` (
   KEY `FK_COULEUR_PRODUIT_COULEUR_idx` (`id_couleur`),
   CONSTRAINT `FK_COULEUR_PRODUIT_COULEUR` FOREIGN KEY (`id_couleur`) REFERENCES `couleur` (`id_couleur`) ON DELETE RESTRICT ON UPDATE RESTRICT,
   CONSTRAINT `FK_PRODUIT_PRODUIT_COULEUR` FOREIGN KEY (`id`) REFERENCES `produit` (`id`) ON DELETE RESTRICT ON UPDATE RESTRICT
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
